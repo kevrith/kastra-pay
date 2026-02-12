@@ -1,10 +1,24 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { Target, Eye, Users, Zap, Shield, Globe } from "lucide-react";
+import { useEffect, useState } from "react";
+import PageLoader from "@/components/shared/page-loader";
 
 export default function AboutPage() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading delay to show loader
+    const timer = setTimeout(() => setIsLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) return <PageLoader />;
+
   return (
     <div className="min-h-screen flex flex-col">
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
