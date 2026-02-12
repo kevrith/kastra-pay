@@ -5,10 +5,10 @@ import { RegisterForm } from "@/components/auth/register-form";
 
 export default function RegisterPage() {
   return (
-    <Card>
-      <CardHeader className="text-center">
-        <CardTitle className="text-2xl">Create Account</CardTitle>
-        <CardDescription>
+    <Card className="border-2 shadow-2xl">
+      <CardHeader className="text-center space-y-2 pb-8">
+        <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-teal-500 to-green-600 bg-clip-text text-transparent">Create Account</CardTitle>
+        <CardDescription className="text-base">
           Join Kastra Pay and start accepting payments
         </CardDescription>
       </CardHeader>
@@ -16,7 +16,7 @@ export default function RegisterPage() {
         <Suspense>
           <RegisterForm />
         </Suspense>
-        <div className="mt-4 text-center text-sm text-muted-foreground">
+        <div className="mt-6 text-center text-sm text-muted-foreground">
           Already have an account?{" "}
           <Link href="/login" className="text-primary hover:underline">
             Sign in

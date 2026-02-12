@@ -131,10 +131,10 @@ export async function POST(req: NextRequest) {
       await prisma.auditLog.create({
         data: {
           userId: session.user.id,
-          action: "REFUND_INITIATE",
-          resource: "Refund",
-          resourceId: refund.id,
-          details: {
+          action: "REFUND_INITIATED",
+          entity: "Refund",
+          entityId: refund.id,
+          newValue: {
             transactionId: transaction.id,
             amount: validated.amount,
             reason: validated.reason,

@@ -105,6 +105,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         "/forgot-password",
         "/reset-password",
         "/verify-email",
+        "/faq",
+        "/about",
+        "/contact",
+        "/terms",
+        "/privacy",
+        "/disputes",
       ];
 
       const isPublicRoute =

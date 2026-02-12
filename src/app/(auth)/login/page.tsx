@@ -4,22 +4,22 @@ import { LoginForm } from "@/components/auth/login-form";
 
 export default function LoginPage() {
   return (
-    <Card>
-      <CardHeader className="text-center">
-        <CardTitle className="text-2xl">Welcome Back</CardTitle>
-        <CardDescription>Sign in to your Kastra Pay account</CardDescription>
+    <Card className="border-2 shadow-2xl">
+      <CardHeader className="text-center space-y-2 pb-8">
+        <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-teal-500 to-green-600 bg-clip-text text-transparent">Welcome Back</CardTitle>
+        <CardDescription className="text-base">Sign in to your Kastra Pay account</CardDescription>
       </CardHeader>
       <CardContent>
         <LoginForm />
-        <div className="mt-4 text-center text-sm">
+        <div className="mt-6 text-center text-sm">
           <Link
             href="/forgot-password"
-            className="text-primary hover:underline"
+            className="text-primary hover:underline font-medium"
           >
             Forgot your password?
           </Link>
         </div>
-        <div className="mt-2 text-center text-sm text-muted-foreground">
+        <div className="mt-3 text-center text-sm text-muted-foreground">
           Don&apos;t have an account?{" "}
           <Link href="/register" className="text-primary hover:underline">
             Sign up

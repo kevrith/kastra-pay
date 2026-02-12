@@ -28,7 +28,7 @@ export async function GET() {
       select: {
         id: true,
         name: true,
-        lastFour: true,
+        keyPrefix: true,
         isActive: true,
         lastUsedAt: true,
         createdAt: true,
@@ -37,7 +37,13 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
     });
 
-    return NextResponse.json({ success: true, data: apiKeys });
+    // Map keyPrefix to lastFour for the client
+    const mapped = apiKeys.map((k) => ({
+      ...k,
+      lastFour: k.keyPrefix,
+    }));
+
+    return NextResponse.json({ success: true, data: mapped });
   } catch (error) {
     return handleApiError(error);
   }
@@ -60,14 +66,14 @@ export async function POST(req: NextRequest) {
     // Generate a secure API key
     const rawKey = `kp_live_${nanoid(32)}`;
     const hashedKey = hashApiKey(rawKey);
-    const lastFour = rawKey.slice(-4);
+    const keyPrefix = rawKey.slice(0, 12);
 
     const apiKey = await prisma.apiKey.create({
       data: {
         merchantId: session.user.merchantId,
         name: validated.name,
-        key: hashedKey,
-        lastFour,
+        keyHash: hashedKey,
+        keyPrefix,
         expiresAt: null,
       },
     });
@@ -76,10 +82,10 @@ export async function POST(req: NextRequest) {
     await prisma.auditLog.create({
       data: {
         userId: session.user.id,
-        action: "API_KEY_CREATE",
-        resource: "ApiKey",
-        resourceId: apiKey.id,
-        details: { name: validated.name } as object,
+        action: "API_KEY_GENERATED",
+        entity: "ApiKey",
+        entityId: apiKey.id,
+        newValue: { name: validated.name } as object,
       },
     });
 
@@ -90,7 +96,7 @@ export async function POST(req: NextRequest) {
         id: apiKey.id,
         name: apiKey.name,
         key: rawKey,
-        lastFour,
+        lastFour: keyPrefix,
         createdAt: apiKey.createdAt,
         expiresAt: apiKey.expiresAt,
       },
@@ -141,10 +147,10 @@ export async function DELETE(req: NextRequest) {
     await prisma.auditLog.create({
       data: {
         userId: session.user.id,
-        action: "API_KEY_REVOKE",
-        resource: "ApiKey",
-        resourceId: keyId,
-        details: { name: apiKey.name } as object,
+        action: "API_KEY_REVOKED",
+        entity: "ApiKey",
+        entityId: keyId,
+        newValue: { name: apiKey.name } as object,
       },
     });
 

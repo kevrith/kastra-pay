@@ -51,13 +51,11 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
     await prisma.auditLog.create({
       data: {
         userId: session.user.id,
-        action: "MERCHANT_UPDATE",
-        resource: "Merchant",
-        resourceId: id,
-        details: {
-          previousStatus: merchant.status,
-          newStatus: status,
-        } as object,
+        action: status === "ACTIVE" ? "MERCHANT_APPROVED" : "MERCHANT_SUSPENDED",
+        entity: "Merchant",
+        entityId: id,
+        oldValue: { status: merchant.status } as object,
+        newValue: { status } as object,
       },
     });
 

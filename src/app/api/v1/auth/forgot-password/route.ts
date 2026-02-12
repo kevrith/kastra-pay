@@ -1,13 +1,23 @@
 export const dynamic = 'force-dynamic';
 
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 import { forgotPasswordSchema } from "@/lib/validators/auth";
 import { handleApiError } from "@/lib/errors";
+import { rateLimiters } from "@/lib/rate-limit";
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0] || "unknown";
+    const rl = rateLimiters.auth(ip);
+    if (!rl.success) {
+      return NextResponse.json(
+        { error: { message: "Too many requests. Please try again later." } },
+        { status: 429, headers: { "Retry-After": String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
+      );
+    }
+
     const body = await request.json();
     const { email } = forgotPasswordSchema.parse(body);
 
