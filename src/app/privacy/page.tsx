@@ -9,7 +9,7 @@ export default function PrivacyPage() {
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" />
+            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" style={{ width: 'auto', height: '40px' }} />
             <span className="font-bold text-lg sm:text-xl text-foreground">Kastra Pay</span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-4">
@@ -48,8 +48,9 @@ export default function PrivacyPage() {
           <section id="section1" className="border-2 rounded-xl p-8 bg-card scroll-mt-20">
             <h2 className="text-2xl font-bold mb-4">1. About this Notice</h2>
             <p className="text-muted-foreground leading-relaxed">
-              This Privacy and Cookie Notice provides information on how Kastra Pay collects and processes your personal data when you visit 
-              our website or mobile applications.
+              This Privacy and Cookie Notice explains how Kastra Pay Ltd ("we", "us", "our") collects, processes, stores, and protects 
+              your personal information when you interact with our payment aggregation platform, including our website, mobile applications, 
+              API services, and merchant checkout integrations. We are committed to transparency and protecting your privacy rights.
             </p>
           </section>
 

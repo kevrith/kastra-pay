@@ -10,7 +10,7 @@ export default function DisputesPage() {
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" />
+            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" style={{ width: 'auto', height: '40px' }} />
             <span className="font-bold text-lg sm:text-xl text-foreground">Kastra Pay</span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-4">
@@ -38,9 +38,9 @@ export default function DisputesPage() {
               <h2 className="text-2xl font-bold">Safety</h2>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              Your safety is our highest priority. Using the most advanced technology, we ensure your information is always protected. 
-              Your financial information is only used to process payments, and never passed on to any other parties, especially not merchants 
-              on Kastra Pay's platform.
+              At Kastra Pay, your security is paramount. We employ bank-grade encryption, PCI-DSS compliance, and advanced fraud detection 
+              systems to safeguard every transaction. Your payment credentials are tokenized and never stored on our servers or shared with 
+              merchants. We act solely as a secure payment intermediary, ensuring your financial data remains protected at all times.
             </p>
           </section>
 

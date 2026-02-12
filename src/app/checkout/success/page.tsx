@@ -92,7 +92,7 @@ export default async function PaymentSuccessPage({ searchParams }: SuccessPagePr
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" />
+            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" style={{ width: 'auto', height: '40px' }} />
           </div>
           {isSuccess && (
             <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto mb-2" />

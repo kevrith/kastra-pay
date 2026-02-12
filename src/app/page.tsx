@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { MobileMenu } from "@/components/shared/mobile-menu";
+import { BackToTop } from "@/components/shared/back-to-top";
 import { MpesaLogo, CardLogos } from "@/components/icons/payment-logos";
 import { useEffect, useState } from "react";
 import {
@@ -40,17 +41,20 @@ export default function HomePage() {
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50 transition-shadow hover:shadow-md">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" />
+            <img src="/k-pay.png" alt="Kastra Pay" className="rounded-lg h-10 w-auto" />
             <span className="font-bold text-lg sm:text-xl text-foreground">Kastra Pay</span>
           </div>
           <div className="flex items-center gap-2 sm:gap-4">
             <ThemeToggle />
-            <Link href="/login">
-              <Button variant="ghost" className="font-medium text-sm sm:text-base px-3 sm:px-4">Log in</Button>
-            </Link>
-            <Link href="/register">
-              <Button className="font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all text-sm sm:text-base px-3 sm:px-4">Get Started</Button>
-            </Link>
+            <div className="hidden md:flex items-center gap-4">
+              <Link href="/login">
+                <Button variant="ghost" className="font-medium text-sm sm:text-base px-3 sm:px-4">Log in</Button>
+              </Link>
+              <Link href="/register">
+                <Button className="font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all text-sm sm:text-base px-3 sm:px-4">Get Started</Button>
+              </Link>
+            </div>
+            <MobileMenu />
           </div>
         </div>
       </header>
@@ -206,7 +210,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div className="md:col-span-1">
               <div className="flex items-center gap-2 mb-4">
-                <Image src="/k-pay.png" alt="Kastra Pay" width={32} height={32} className="rounded" />
+                <img src="/k-pay.png" alt="Kastra Pay" className="rounded h-8 w-auto" />
                 <span className="font-bold text-lg">Kastra Pay</span>
               </div>
               <p className="text-sm text-muted-foreground">Accept payments across Africa with ease.</p>
@@ -238,15 +242,16 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+      <BackToTop />
     </div>
   );
 }
 
 function StatSkeleton() {
   return (
-    <div className="text-center">
-      <div className="h-12 w-24 mx-auto bg-muted animate-pulse rounded mb-2" />
-      <div className="h-4 w-20 mx-auto bg-muted animate-pulse rounded" />
+    <div className="text-center animate-pulse">
+      <div className="h-12 w-24 mx-auto bg-muted rounded-lg mb-2" />
+      <div className="h-4 w-20 mx-auto bg-muted rounded" />
     </div>
   );
 }

@@ -10,7 +10,7 @@ export default function AboutPage() {
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" />
+            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" style={{ width: 'auto', height: '40px' }} />
             <span className="font-bold text-lg sm:text-xl text-foreground">Kastra Pay</span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-4">
@@ -29,7 +29,7 @@ export default function AboutPage() {
             About Kastra Pay
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Empowering African businesses with seamless payment solutions that connect merchants and customers across the continent.
+            Revolutionizing digital payments across Africa by unifying multiple payment providers into one powerful platform for businesses of all sizes.
           </p>
         </section>
 
@@ -42,8 +42,8 @@ export default function AboutPage() {
               </div>
               <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
               <p className="text-muted-foreground leading-relaxed">
-                To simplify payments across Africa by providing a unified platform that enables businesses of all sizes to accept 
-                multiple payment methods seamlessly, securely, and affordably.
+                To democratize payment acceptance across Africa by eliminating technical barriers and providing businesses with 
+                enterprise-grade payment infrastructure through a single, unified integration.
               </p>
             </div>
 

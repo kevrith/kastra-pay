@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
@@ -33,13 +34,19 @@ export default function ContactPage() {
       const data = await response.json();
 
       if (data.success) {
-        alert("Thank you! We'll get back to you soon.");
+        toast.success("Message sent successfully!", {
+          description: "We'll get back to you soon.",
+        });
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
-        alert("Failed to send message. Please try again.");
+        toast.error("Failed to send message", {
+          description: "Please try again later.",
+        });
       }
     } catch (error) {
-      alert("Failed to send message. Please try again.");
+      toast.error("Something went wrong", {
+        description: "Please check your connection and try again.",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -50,7 +57,7 @@ export default function ContactPage() {
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" />
+            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" style={{ width: 'auto', height: '40px' }} />
             <span className="font-bold text-lg sm:text-xl text-foreground">Kastra Pay</span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-4">

@@ -17,7 +17,7 @@ export default function FAQPage() {
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" />
+            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" style={{ width: 'auto', height: '40px' }} />
             <span className="font-bold text-lg sm:text-xl text-foreground">Kastra Pay</span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-4">
@@ -39,11 +39,11 @@ export default function FAQPage() {
             <AccordionContent className="space-y-4">
               <div>
                 <h3 className="font-semibold mb-2">1.1. What is Kastra Pay?</h3>
-                <p className="text-muted-foreground">Kastra Pay is a multi-merchant payment platform that enables businesses across Africa to accept payments via M-Pesa, Flutterwave, and Paystack through a unified checkout experience.</p>
+                <p className="text-muted-foreground">Kastra Pay is an enterprise payment aggregation platform that consolidates M-Pesa, Flutterwave, and Paystack into a single checkout experience, enabling African businesses to accept all major payment methods through one integration.</p>
               </div>
               <div>
                 <h3 className="font-semibold mb-2">1.2. Why should I use Kastra Pay?</h3>
-                <p className="text-muted-foreground">Kastra Pay offers seamless integration with multiple payment providers, real-time transaction tracking, secure payment processing, and competitive transaction fees.</p>
+                <p className="text-muted-foreground">Kastra Pay eliminates the complexity of managing multiple payment provider integrations. You get one API, one dashboard, one settlement report, and access to all major African payment methods with competitive rates and 24/7 support.</p>
               </div>
               <div>
                 <h3 className="font-semibold mb-2">1.3. How secure are Kastra Pay transactions?</h3>

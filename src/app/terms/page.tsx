@@ -9,7 +9,7 @@ export default function TermsPage() {
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" />
+            <Image src="/k-pay.png" alt="Kastra Pay" width={40} height={40} className="rounded-lg" style={{ width: 'auto', height: '40px' }} />
             <span className="font-bold text-lg sm:text-xl text-foreground">Kastra Pay</span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-4">
@@ -55,13 +55,14 @@ export default function TermsPage() {
           <section id="intro" className="border-2 rounded-xl p-8 bg-card scroll-mt-20">
             <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Kastra Pay operates a payment processing platform ("Service") that enables users ("you" or "User") to complete transactions 
-              for goods and services from participating merchants across Africa. Our Service supports multiple payment methods including 
-              M-Pesa, Flutterwave, and Paystack.
+              Kastra Pay operates as a payment aggregation platform ("Service") that connects businesses ("Merchants") and customers ("Users") 
+              with multiple payment service providers including M-Pesa, Flutterwave, and Paystack. Our platform enables seamless transaction 
+              processing across Africa's diverse payment ecosystem.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              These Terms and Conditions ("Terms") govern your use of the Kastra Pay Service, whether accessed through our website, 
-              mobile application, or merchant checkout pages.
+              These Terms and Conditions ("Terms") constitute a legally binding agreement between you and Kastra Pay Ltd regarding your 
+              access to and use of our payment aggregation services, whether through our website, API, mobile applications, or merchant 
+              checkout integrations.
             </p>
             <p className="text-muted-foreground leading-relaxed">
               By creating an account or using our Service, you acknowledge that you have read, understood, and agree to be bound by 
