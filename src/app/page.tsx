@@ -33,6 +33,19 @@ export default function HomePage() {
         setIsLoading(false);
       })
       .catch(() => setIsLoading(false));
+
+    // Parallax effect
+    const handleScroll = () => {
+      const scrolled = window.scrollY;
+      const parallaxElements = document.querySelectorAll('.parallax');
+      parallaxElements.forEach((el) => {
+        const speed = parseFloat(el.getAttribute('data-speed') || '0.5');
+        (el as HTMLElement).style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -61,9 +74,9 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <main className="flex-1">
-        <section className="container mx-auto px-4 py-20 md:py-24 text-center relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-accent/20 to-transparent -z-10" />
-          <div className="max-w-4xl mx-auto">
+        <section className="container mx-auto px-4 py-20 md:py-24 text-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-accent/20 to-transparent -z-10 parallax" data-speed="0.5" />
+          <div className="max-w-4xl mx-auto parallax" data-speed="0.3">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 animate-fade-in">
               <Zap className="h-4 w-4" />
               <span>Trusted by businesses across Africa</span>
@@ -268,7 +281,7 @@ function FeatureCard({
   description: string;
 }) {
   return (
-    <div className="group rounded-xl border-2 bg-card p-8 hover:shadow-xl hover:shadow-primary/10 hover:border-primary/50 transition-all duration-300">
+    <div className="group rounded-xl border-2 bg-card p-8 card-hover">
       <div className={`h-24 w-full rounded-xl bg-gradient-to-br ${iconBg} flex items-center justify-center mb-6 group-hover:scale-105 transition-transform overflow-hidden shadow-lg`}>
         {icon}
       </div>

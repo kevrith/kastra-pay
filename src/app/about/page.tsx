@@ -50,7 +50,7 @@ export default function AboutPage() {
         {/* Mission & Vision */}
         <section className="container mx-auto px-4 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <div className="border-2 rounded-xl p-8 bg-card">
+            <div className="border-2 rounded-xl p-8 bg-card card-hover-subtle">
               <div className="h-14 w-14 rounded-full bg-blue-500/10 flex items-center justify-center mb-6">
                 <Target className="h-7 w-7 text-blue-600" />
               </div>
@@ -61,7 +61,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="border-2 rounded-xl p-8 bg-card">
+            <div className="border-2 rounded-xl p-8 bg-card card-hover-subtle">
               <div className="h-14 w-14 rounded-full bg-green-500/10 flex items-center justify-center mb-6">
                 <Eye className="h-7 w-7 text-green-600" />
               </div>
@@ -102,7 +102,7 @@ export default function AboutPage() {
         <section className="container mx-auto px-4 py-16">
           <h2 className="text-3xl font-bold text-center mb-12">Our Core Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <div className="border-2 rounded-xl p-6 bg-card text-center">
+            <div className="border-2 rounded-xl p-6 bg-card text-center card-hover-subtle">
               <div className="h-14 w-14 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-4">
                 <Shield className="h-7 w-7 text-blue-600" />
               </div>
@@ -112,7 +112,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="border-2 rounded-xl p-6 bg-card text-center">
+            <div className="border-2 rounded-xl p-6 bg-card text-center card-hover-subtle">
               <div className="h-14 w-14 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-4">
                 <Users className="h-7 w-7 text-green-600" />
               </div>
@@ -122,7 +122,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="border-2 rounded-xl p-6 bg-card text-center">
+            <div className="border-2 rounded-xl p-6 bg-card text-center card-hover-subtle">
               <div className="h-14 w-14 rounded-full bg-purple-500/10 flex items-center justify-center mx-auto mb-4">
                 <Zap className="h-7 w-7 text-purple-600" />
               </div>
