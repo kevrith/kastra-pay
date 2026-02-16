@@ -20,9 +20,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Loader2 } from "lucide-react";
+import { Loader2, Webhook } from "lucide-react";
 import { toast } from "sonner";
 import { ApiKeysManager } from "@/components/dashboard/api-keys-manager";
+import { WebhookConfig } from "@/components/dashboard/webhook-config";
 
 export default function MerchantSettingsPage() {
   const { data: session } = useSession();
@@ -204,6 +205,8 @@ export default function MerchantSettingsPage() {
       </Card>
 
       {session?.user?.merchantId && <ApiKeysManager />}
+
+      {session?.user?.merchantId && <WebhookConfig />}
     </div>
   );
 }

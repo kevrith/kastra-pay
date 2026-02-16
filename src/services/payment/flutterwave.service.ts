@@ -30,6 +30,14 @@ export class FlutterwaveService implements PaymentGateway {
   }
 
   async initiate(params: InitiatePaymentParams): Promise<InitiatePaymentResult> {
+    if (!params.customerEmail) {
+      return {
+        success: false,
+        providerRef: "",
+        error: "Customer email is required for Flutterwave payments",
+      };
+    }
+
     const response = await fetch(`${FLUTTERWAVE_BASE_URL}/payments`, {
       method: "POST",
       headers: this.headers,
@@ -39,7 +47,7 @@ export class FlutterwaveService implements PaymentGateway {
         currency: params.currency,
         redirect_url: params.callbackUrl,
         customer: {
-          email: params.customerEmail || "customer@example.com",
+          email: params.customerEmail,
           phonenumber: params.customerPhone,
           name: params.customerName,
         },

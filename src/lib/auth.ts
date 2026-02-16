@@ -119,7 +119,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         pathname.startsWith("/pay/") ||
         pathname.startsWith("/api/webhooks") ||
         pathname.startsWith("/api/auth") ||
-        pathname.startsWith("/api/v1/auth");
+        pathname.startsWith("/api/v1/auth") ||
+        pathname.startsWith("/api/v1/payments") ||
+        pathname.startsWith("/api/health");
 
       if (isPublicRoute) return true;
 

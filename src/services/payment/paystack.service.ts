@@ -29,6 +29,14 @@ export class PaystackService implements PaymentGateway {
   }
 
   async initiate(params: InitiatePaymentParams): Promise<InitiatePaymentResult> {
+    if (!params.customerEmail) {
+      return {
+        success: false,
+        providerRef: "",
+        error: "Customer email is required for Paystack payments",
+      };
+    }
+
     // Paystack expects amount in lowest currency unit (kobo for NGN, cents for KES)
     const amountInSmallestUnit = Math.round(params.amount * 100);
 
@@ -38,7 +46,7 @@ export class PaystackService implements PaymentGateway {
         method: "POST",
         headers: this.headers,
         body: JSON.stringify({
-          email: params.customerEmail || "customer@example.com",
+          email: params.customerEmail,
           amount: amountInSmallestUnit,
           currency: params.currency,
           reference: params.idempotencyKey,

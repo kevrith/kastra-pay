@@ -15,6 +15,7 @@ import {
   Users,
   ScrollText,
   ShieldCheck,
+  Code,
 } from "lucide-react";
 
 const merchantLinks = [
@@ -23,6 +24,7 @@ const merchantLinks = [
   { href: "/merchant/refunds", label: "Refunds", icon: RefreshCcw },
   { href: "/merchant/payment-links", label: "Payment Links", icon: Link2 },
   { href: "/merchant/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/merchant/integration", label: "Integration", icon: Code },
   { href: "/merchant/settings", label: "Settings", icon: Settings },
 ];
 
