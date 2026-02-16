@@ -77,7 +77,7 @@ export function AnalyticsCharts({
                 <XAxis dataKey="date" className="text-xs" />
                 <YAxis className="text-xs" />
                 <Tooltip
-                  formatter={(value: number) => [`${currency} ${value.toLocaleString()}`, "Revenue"]}
+                  formatter={(value) => [`${currency} ${Number(value).toLocaleString()}`, "Revenue"]}
                   labelFormatter={(label) => `Date: ${label}`}
                 />
                 <Area
@@ -111,8 +111,8 @@ export function AnalyticsCharts({
                 <XAxis dataKey="method" className="text-xs" />
                 <YAxis className="text-xs" />
                 <Tooltip
-                  formatter={(value: number, name: string) => [
-                    name === "revenue" ? `${currency} ${value.toLocaleString()}` : value,
+                  formatter={(value, name) => [
+                    name === "revenue" ? `${currency} ${Number(value).toLocaleString()}` : value,
                     name === "revenue" ? "Revenue" : "Transactions",
                   ]}
                 />
@@ -145,7 +145,7 @@ export function AnalyticsCharts({
                   outerRadius={100}
                   dataKey="count"
                   nameKey="status"
-                  label={({ status, count }) => `${status}: ${count}`}
+                  label={({ name, value }) => `${name}: ${value}`}
                 >
                   {statusBreakdown.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />

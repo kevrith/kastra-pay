@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { createAndSendReceipt } from "@/lib/send-receipt";
 
 export async function POST(request: NextRequest) {
   try {
@@ -64,6 +65,9 @@ export async function POST(request: NextRequest) {
           completedAt: new Date(),
         },
       });
+
+      // Send receipt email (fire-and-forget)
+      createAndSendReceipt(transaction.id).catch(() => {});
 
       // Update webhook event with transaction reference
       await prisma.webhookEvent.updateMany({

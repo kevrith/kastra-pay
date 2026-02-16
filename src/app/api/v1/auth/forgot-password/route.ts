@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { forgotPasswordSchema } from "@/lib/validators/auth";
 import { handleApiError } from "@/lib/errors";
 import { rateLimiters } from "@/lib/rate-limit";
+import { sendPasswordResetEmail } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
   try {
@@ -35,11 +36,10 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      // TODO: Send email with reset link using Resend
-      // For now, log the token in development
-      if (process.env.NODE_ENV === "development") {
-        console.log(`Password reset token for ${email}: ${token}`);
-      }
+      // Send reset email (non-blocking - don't fail the request if email fails)
+      await sendPasswordResetEmail(email, token).catch((err) =>
+        console.error("Failed to send reset email:", err)
+      );
     }
 
     // Always return success to prevent email enumeration

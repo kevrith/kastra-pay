@@ -86,6 +86,7 @@ export async function POST(req: NextRequest) {
         amount: validated.amount,
         reason: validated.reason,
         status: "PROCESSING",
+        initiatedBy: session.user.id,
       },
     });
 
