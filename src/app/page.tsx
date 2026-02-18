@@ -232,6 +232,7 @@ export default function HomePage() {
               <h3 className="font-semibold mb-4">Company</h3>
               <ul className="space-y-2 text-sm">
                 <li><Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
+                <li><Link href="/api-docs" className="text-muted-foreground hover:text-primary transition-colors">API Docs</Link></li>
                 <li><Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact Us</Link></li>
                 <li><Link href="/faq" className="text-muted-foreground hover:text-primary transition-colors">FAQ</Link></li>
               </ul>

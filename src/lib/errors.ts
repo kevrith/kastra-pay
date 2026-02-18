@@ -67,8 +67,9 @@ export function handleApiError(error: unknown) {
   }
 
   console.error("Unexpected error:", error);
+  const message = error instanceof Error ? error.message : "An unexpected error occurred";
   return Response.json(
-    { error: { code: "INTERNAL_ERROR", message: "An unexpected error occurred" } },
+    { error: { code: "INTERNAL_ERROR", message } },
     { status: 500 }
   );
 }

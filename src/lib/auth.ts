@@ -111,6 +111,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         "/terms",
         "/privacy",
         "/disputes",
+        "/api-docs",
       ];
 
       const isPublicRoute =

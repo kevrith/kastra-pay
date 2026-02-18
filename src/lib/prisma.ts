@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { Pool } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
 
 const globalForPrisma = globalThis as unknown as {
@@ -8,9 +7,13 @@ const globalForPrisma = globalThis as unknown as {
 
 function createPrismaClient() {
   const connectionString = process.env.DATABASE_URL;
-  const pool = new Pool({ connectionString });
+  if (!connectionString) {
+    throw new Error("DATABASE_URL environment variable is not set");
+  }
+  // PrismaNeon creates a Pool internally from the config object
+  // Supports transactions (unlike PrismaNeonHttp)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const adapter = new PrismaNeon(pool as any);
+  const adapter = new PrismaNeon({ connectionString } as any);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return new PrismaClient({ adapter } as any);
 }

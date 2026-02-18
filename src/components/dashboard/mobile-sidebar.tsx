@@ -16,6 +16,7 @@ import {
   ScrollText,
   ShieldCheck,
   Code,
+  Banknote,
 } from "lucide-react";
 
 const merchantLinks = [
@@ -23,6 +24,7 @@ const merchantLinks = [
   { href: "/merchant/transactions", label: "Transactions", icon: Receipt },
   { href: "/merchant/refunds", label: "Refunds", icon: RefreshCcw },
   { href: "/merchant/payment-links", label: "Payment Links", icon: Link2 },
+  { href: "/merchant/settlements", label: "Settlements", icon: Banknote },
   { href: "/merchant/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/merchant/integration", label: "Integration", icon: Code },
   { href: "/merchant/settings", label: "Settings", icon: Settings },
@@ -32,6 +34,7 @@ const adminLinks = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/merchants", label: "Merchants", icon: Users },
   { href: "/admin/transactions", label: "Transactions", icon: Receipt },
+  { href: "/admin/settlements", label: "Settlements", icon: Banknote },
   { href: "/admin/audit-logs", label: "Audit Logs", icon: ScrollText },
   { href: "/admin/settings", label: "Settings", icon: ShieldCheck },
 ];

@@ -141,7 +141,7 @@ export class MpesaService implements PaymentGateway {
       return {
         success: false,
         providerRef: "",
-        error: data.ResponseDescription || "STK Push failed",
+        error: data.ResponseDescription || data.errorMessage || "STK Push failed",
       };
     }
 

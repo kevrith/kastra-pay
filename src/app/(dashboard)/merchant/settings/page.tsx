@@ -24,6 +24,7 @@ import { Loader2, Webhook } from "lucide-react";
 import { toast } from "sonner";
 import { ApiKeysManager } from "@/components/dashboard/api-keys-manager";
 import { WebhookConfig } from "@/components/dashboard/webhook-config";
+import { SettlementConfig } from "@/components/dashboard/settlement-config";
 
 export default function MerchantSettingsPage() {
   const { data: session } = useSession();
@@ -203,6 +204,8 @@ export default function MerchantSettingsPage() {
           </Form>
         </CardContent>
       </Card>
+
+      {session?.user?.merchantId && <SettlementConfig />}
 
       {session?.user?.merchantId && <ApiKeysManager />}
 

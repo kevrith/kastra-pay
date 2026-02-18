@@ -54,6 +54,19 @@ enum PaymentLinkStatus {
   DISABLED
 }
 
+enum SettlementStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum SettlementFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+}
+
 enum AuditAction {
   CREATE
   UPDATE
@@ -69,6 +82,8 @@ enum AuditAction {
   API_KEY_REVOKED
   MERCHANT_APPROVED
   MERCHANT_SUSPENDED
+  SETTLEMENT_INITIATED
+  SETTLEMENT_COMPLETED
 }
 
 // ──────────────────────────────────────────
@@ -157,10 +172,15 @@ model Merchant {
   status              MerchantStatus @default(PENDING)
 
   // Settlement info
-  settlementEmail     String?
-  settlementPhone     String?
-  settlementBankCode  String?
-  settlementAccountNo String?
+  settlementEmail       String?
+  settlementPhone       String?
+  settlementBankCode    String?
+  settlementAccountNo   String?
+  settlementAccountName String?
+  settlementBankName    String?
+  commissionRate        Decimal?           @db.Decimal(5, 4) // e.g. 0.0250 = 2.5%
+  settlementFrequency   SettlementFrequency @default(WEEKLY)
+  mpesaB2CPhone         String?            // M-Pesa number for B2C disbursement
 
   // Provider config (encrypted at app level)
   mpesaShortCode       String?
@@ -181,6 +201,7 @@ model Merchant {
   paymentLinks  PaymentLink[]
   refunds       Refund[]
   webhookEvents WebhookEvent[]
+  settlements   Settlement[]
 
   @@index([slug])
   @@index([status])
@@ -368,4 +389,37 @@ model AuditLog {
   @@index([action])
   @@index([createdAt])
   @@map("audit_logs")
+}
+
+// ──────────────────────────────────────────
+// SETTLEMENT MODEL
+// ──────────────────────────────────────────
+
+model Settlement {
+  id              String              @id @default(cuid())
+  merchantId      String
+  amount          Decimal             @db.Decimal(12, 2) // Total amount to settle
+  platformFee     Decimal             @db.Decimal(12, 2) // KastraPay commission
+  providerFee     Decimal             @db.Decimal(12, 2) // Payment provider fees
+  netAmount       Decimal             @db.Decimal(12, 2) // Amount merchant receives
+  currency        String              @default("KES")
+  status          SettlementStatus    @default(PENDING)
+  paymentMethod   String              // MPESA_B2C, PAYSTACK_TRANSFER, FLUTTERWAVE_TRANSFER
+  providerRef     String?             // Provider's transfer reference
+  providerResponse Json?
+  failureReason   String?
+  periodStart     DateTime            // Settlement period start
+  periodEnd       DateTime            // Settlement period end
+  transactionCount Int                // Number of transactions in this settlement
+  processedAt     DateTime?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  merchant Merchant @relation(fields: [merchantId], references: [id])
+
+  @@index([merchantId, status])
+  @@index([merchantId, createdAt])
+  @@index([status])
+  @@index([periodStart, periodEnd])
+  @@map("settlements")
 }
