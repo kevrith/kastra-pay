@@ -32,22 +32,15 @@ export function LoginForm() {
     setError(null);
 
     try {
-      const result = await signIn("credentials", {
+      await signIn("credentials", {
         email: values.email,
         password: values.password,
-        redirect: false,
+        redirectTo: "/",
       });
-
-      if (!result?.ok || result?.error) {
-        setError("Invalid email or password");
-        return;
-      }
-
-      // Force a full page reload so the server re-reads the session cookie
-      // and the proxy/middleware redirects to the correct dashboard
-      window.location.href = result.url ?? "/";
-    } catch {
-      setError("Something went wrong. Please try again.");
+    } catch (err: any) {
+      // NextAuth throws a redirect error on success - ignore it
+      if (err?.message?.includes("NEXT_REDIRECT")) return;
+      setError("Invalid email or password");
     } finally {
       setIsLoading(false);
     }
