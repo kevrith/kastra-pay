@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import type { UserRole } from "@prisma/client";
+import { authConfig } from "@/lib/auth.config";
 
 declare module "next-auth" {
   interface Session {
@@ -32,12 +33,9 @@ declare module "@auth/core/jwt" {
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  ...authConfig,
   adapter: PrismaAdapter(prisma) as never,
   session: { strategy: "jwt" },
-  pages: {
-    signIn: "/login",
-    error: "/login",
-  },
   providers: [
     Credentials({
       name: "credentials",
@@ -93,51 +91,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.user.merchantId = token.merchantId as string | undefined;
       return session;
     },
-    async authorized({ auth, request }) {
-      const isLoggedIn = !!auth?.user;
-      const { pathname } = request.nextUrl;
-
-      // Public routes
-      const publicRoutes = [
-        "/",
-        "/login",
-        "/register",
-        "/forgot-password",
-        "/reset-password",
-        "/verify-email",
-        "/faq",
-        "/about",
-        "/contact",
-        "/terms",
-        "/privacy",
-        "/disputes",
-        "/api-docs",
-      ];
-
-      const isPublicRoute =
-        publicRoutes.some((route) => pathname === route) ||
-        pathname.startsWith("/checkout") ||
-        pathname.startsWith("/pay/") ||
-        pathname.startsWith("/api/webhooks") ||
-        pathname.startsWith("/api/auth") ||
-        pathname.startsWith("/api/v1/auth") ||
-        pathname.startsWith("/api/v1/payments") ||
-        pathname.startsWith("/api/health");
-
-      if (isPublicRoute) return true;
-
-      if (!isLoggedIn) return false;
-
-      // Role-based access
-      if (pathname.startsWith("/admin") || pathname.startsWith("/api/v1/admin")) {
-        return auth?.user?.role === "SUPER_ADMIN";
-      }
-
-      if (pathname.startsWith("/merchant") || pathname.startsWith("/api/v1/merchant")) {
-        return auth?.user?.role === "MERCHANT" || auth?.user?.role === "SUPER_ADMIN";
-      }
-
-      return true;
-    },
+    ...authConfig.callbacks,
   },
 });
