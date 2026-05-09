@@ -64,6 +64,11 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-verification-code",
   },
+  icons: {
+    icon: "/k-pay.png",
+    shortcut: "/k-pay.png",
+    apple: "/k-pay.png",
+  },
 };
 
 export default function RootLayout({
