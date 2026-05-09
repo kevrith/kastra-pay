@@ -1,3 +1,4 @@
+// proxy v2
 import NextAuth from "next-auth";
 import { authConfig } from "@/lib/auth.config";
 
@@ -7,6 +8,6 @@ export default auth;
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|logos|icons|.*\\.png$|.*\\.jpg$|.*\\.svg$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|logos|icons|.*\.png$|.*\.jpg$|.*\.svg$).*)",
   ],
 };
