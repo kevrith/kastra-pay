@@ -38,42 +38,23 @@ export function LoginForm() {
         redirect: false,
       });
 
-      console.log("[LOGIN] signIn result:", JSON.stringify(result));
-
-      if (!result) {
-        console.log("[LOGIN] No result returned from signIn");
-        setError("Something went wrong. Please try again.");
-        return;
-      }
-
-      if (result.error) {
-        console.log("[LOGIN] Error:", result.error, "Code:", result.code);
+      if (!result?.ok || result?.error) {
         setError("Invalid email or password");
         return;
       }
 
-      console.log("[LOGIN] Success, url:", result.url, "ok:", result.ok);
-
-      // Fetch session to get role
       const sessionRes = await fetch("/api/auth/session");
       const session = await sessionRes.json();
-      console.log("[LOGIN] Session after login:", JSON.stringify(session));
-
       const role = session?.user?.role;
-      console.log("[LOGIN] Role:", role);
 
       if (role === "SUPER_ADMIN") {
         window.location.replace("/admin");
       } else if (role === "MERCHANT") {
         window.location.replace("/merchant");
-      } else if (role === "CUSTOMER") {
-        window.location.replace("/customer");
       } else {
-        console.log("[LOGIN] Unknown role, going to /");
-        window.location.replace("/");
+        window.location.replace("/customer");
       }
-    } catch (err: any) {
-      console.error("[LOGIN] Exception:", err?.message, err);
+    } catch {
       setError("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
