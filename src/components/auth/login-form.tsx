@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn, getSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginInput } from "@/lib/validators/auth";
@@ -19,7 +18,6 @@ import {
 import { Loader2, Eye, EyeOff } from "lucide-react";
 
 export function LoginForm() {
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -40,23 +38,14 @@ export function LoginForm() {
         redirect: false,
       });
 
-      if (result?.error) {
+      if (!result?.ok || result?.error) {
         setError("Invalid email or password");
         return;
       }
 
-      // Get the session to determine role-based redirect
-      const session = await getSession();
-      const role = session?.user?.role;
-
-      if (role === "SUPER_ADMIN") {
-        router.push("/admin");
-      } else if (role === "MERCHANT") {
-        router.push("/merchant");
-      } else {
-        router.push("/customer");
-      }
-      router.refresh();
+      // Force a full page reload so the server re-reads the session cookie
+      // and the proxy/middleware redirects to the correct dashboard
+      window.location.href = result.url ?? "/";
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
