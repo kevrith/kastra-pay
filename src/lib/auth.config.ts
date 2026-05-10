@@ -1,4 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
+import type { UserRole } from "@prisma/client";
 
 export const authConfig: NextAuthConfig = {
   trustHost: true,
@@ -9,6 +10,15 @@ export const authConfig: NextAuthConfig = {
   },
   providers: [],
   callbacks: {
+    // Runs in Edge (middleware) — unpacks custom JWT fields into session.user
+    // so that auth.user.role is available inside the authorized() callback.
+    session({ session, token }) {
+      if (token.sub) session.user.id = token.sub;
+      if (token.role) session.user.role = token.role as UserRole;
+      if (token.merchantId) session.user.merchantId = token.merchantId as string;
+      return session;
+    },
+
     authorized({ auth, request }) {
       const isLoggedIn = !!auth?.user;
       const { pathname } = request.nextUrl;
