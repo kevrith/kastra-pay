@@ -61,8 +61,8 @@ export default function MerchantSettingsPage() {
       }
 
       toast.success("Merchant profile created! Awaiting approval.");
-      router.push("/merchant");
-      router.refresh();
+      // Force a full session refresh so the JWT picks up the new merchantId
+      window.location.href = "/merchant";
     } catch {
       toast.error("Something went wrong");
     } finally {
