@@ -9,7 +9,10 @@ import { RecentTransactions } from "@/components/dashboard/recent-transactions";
 
 export default async function MerchantDashboard() {
   const session = await auth();
-  if (!session?.user?.merchantId) {
+  if (!session?.user) {
+    redirect("/login");
+  }
+  if (!session.user.merchantId) {
     redirect("/merchant/settings");
   }
 

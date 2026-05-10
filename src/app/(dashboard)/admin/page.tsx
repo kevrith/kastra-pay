@@ -1,11 +1,18 @@
 export const dynamic = 'force-dynamic';
 
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatsCards } from "@/components/dashboard/stats-cards";
-import { Users, Building2, CreditCard, TrendingUp } from "lucide-react";
+import { Users, Building2, TrendingUp } from "lucide-react";
 
 export default async function AdminDashboard() {
+  const session = await auth();
+  if (!session?.user || session.user.role !== "SUPER_ADMIN") {
+    redirect("/login");
+  }
+
   const [
     totalRevenue,
     totalTransactions,

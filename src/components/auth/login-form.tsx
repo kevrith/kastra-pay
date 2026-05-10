@@ -43,17 +43,7 @@ export function LoginForm() {
         return;
       }
 
-      const sessionRes = await fetch("/api/auth/session");
-      const session = await sessionRes.json();
-      const role = session?.user?.role;
-
-      if (role === "SUPER_ADMIN") {
-        window.location.replace("/admin");
-      } else if (role === "MERCHANT") {
-        window.location.replace("/merchant");
-      } else {
-        window.location.replace("/customer");
-      }
+      window.location.replace("/dashboard");
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
